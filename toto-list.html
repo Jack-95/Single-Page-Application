@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<title>To Do List</title>
+<style>
+	*{
+		box-sizing: border-box;
+	}
+	.todoList{
+		margin: 50px auto;
+	}
+	h1{
+		text-align: center;
+		color: lightgrey;
+	}
+	.strike{
+    	text-decoration: line-through;
+	}
+	.iconOri {
+	    color:darkgray;
+	}
+	.iconColor {
+	    color:lightgrey;
+	}
+</style>
+</head>
+<body>
+	<h1>This is a Todo List</h1><hr>
+	<div class="todoList" style="width:600px;" ng-app="myApp">
+	<table class="table table-striped" ng-controller="todoCtrl">
+		<tr>
+			<td></td>
+			<td>
+				<form ng-submit="addTodo(text)">
+					<input ng-model="text" type="text" placeholder="What needs to be done?" class="form-control"/>
+				</form>
+			</td>
+		</tr>
+		<tr ng-repeat="item in lists">
+			<td><span ng-class="[check, {iconColor:!deleted},{iconOri:deleted}]" ng-click="deleted=!deleted" ng-init="deleted=false"></span></td>
+			<td ng-class="{strike:deleted}">{{item}}</td>
+		</tr>
+	</table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>	
+<script type="text/javascript">
+// create module, controller using angularjs
+angular.module('myApp',[]).controller("todoCtrl",function($scope,$http){
+    $scope.check = "glyphicon glyphicon-ok";
+    $scope.lists=["Get the car repaired","Buy Eggs","Get HairCut","Pack suitcase"];
+    $scope.addTodo = function(todo) {
+        $scope.lists.unshift(todo);   
+        $scope.text = "";
+    };
+    });	
+</script>
+
+</body>
+</html>
+
+
